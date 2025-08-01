@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Pos?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml"
+           fx:controller="org.example.scrs.Controllers.loginController"
+           alignment="CENTER">
+
+    <VBox fx:id="form" alignment="CENTER" spacing="15" maxWidth="300" >
+        <Label text="Login" maxWidth="Infinity" alignment="CENTER"/>
+
+        <HBox alignment="CENTER_LEFT" spacing="10">
+            <Label text="Email:" minWidth="80"/>
+            <TextField fx:id="emailField" promptText="abc@example.com" HBox.hgrow="ALWAYS"/>
+        </HBox>
+
+        <HBox alignment="CENTER_LEFT" spacing="10">
+            <Label text="Password:" minWidth="80"/>
+            <TextField fx:id="passwordField" promptText="password" HBox.hgrow="ALWAYS"/>
+        </HBox>
+
+        <ComboBox fx:id="usertypeComboBox" prefWidth="90" />
+
+        <Button fx:id="loginButton" text="Login" prefWidth="210"/>
+    </VBox>
+
+</StackPane>

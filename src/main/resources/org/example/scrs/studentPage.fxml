@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.scrs.Controllers.studentDashboardController"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <BorderPane AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0">
+
+        <!-- Left: Navigation bar -->
+        <left>
+            <VBox spacing="10" prefWidth="150">
+                <Label text="Student" fx:id="studentNameLabel"/>
+                <Button text="My Courses" fx:id="myCoursesButton" />
+                <Button text="All Courses" fx:id="allCoursesButton" />
+                <Button text="Profile Edit" fx:id="profileEditButton" />
+                <Button text="Log Out" fx:id="logoutButton" />
+            </VBox>
+        </left>
+
+
+        <center>
+
+        </center>
+
+    </BorderPane>
+</AnchorPane>

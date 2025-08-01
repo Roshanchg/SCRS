@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.layout.Pane?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.scrs.Controllers.adminDashboardController"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <!-- Top area: button aligned to right -->
+    <top>
+        <HBox  spacing="10" >
+            <Pane HBox.hgrow="ALWAYS"/>
+            <Button text="Top Right Button" />
+        </HBox>
+    </top>
+
+    <!-- Center area: main content -->
+    <center>
+        <HBox spacing="10" >
+            <!-- Left tile: TableView -->
+            <TableView fx:id="leftTable" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS" prefWidth="200"/>
+
+            <!-- Right tile: VBox with PieChart on top, TableView bottom -->
+            <VBox spacing="10" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS" prefWidth="300">
+                <PieChart fx:id="pieChart" VBox.vgrow="ALWAYS" prefHeight="150"/>
+                <TableView fx:id="rightTable" VBox.vgrow="ALWAYS" />
+            </VBox>
+        </HBox>
+    </center>
+
+</BorderPane>
