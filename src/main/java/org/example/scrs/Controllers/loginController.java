@@ -7,9 +7,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import org.example.scrs.Classes.Student;
 import org.example.scrs.Enums.NAVIGATIONS;
 import org.example.scrs.Enums.USERTYPE;
+import org.example.scrs.handlers.FileHandling;
 import org.example.scrs.handlers.Navigator;
+import org.example.scrs.handlers.SessionHandler;
+import org.example.scrs.handlers.UserHandling;
 import org.w3c.dom.events.MouseEvent;
 
 import java.io.IOException;
@@ -41,14 +45,32 @@ public class loginController implements Initializable {
         usertypeComboBox.setValue(USERTYPE.Student);
         loginButton.setOnAction(e->{
             try {
-                Navigator.Navigate(NAVIGATIONS.STUDENT);
+                if(usertypeComboBox.getValue()==null){
+                    AlertManager.showError("Bad input","Invalid usertype");
+                    return;
+                }
+                else if(emailField.getText().trim().isEmpty()||passwordField.getText().trim().isEmpty()){
+                    AlertManager.showError("Bad input","Empty field/s");
+                    return;
+                }
+
+                int id=UserHandling.authenticate(emailField.getText(),passwordField.getText(),usertypeComboBox.getValue());
+                SessionHandler.endSession();
+                switch (usertypeComboBox.getValue()){
+                    case Student -> {
+                        SessionHandler.startSession(id, USERTYPE.Student);
+                        Navigator.Navigate(NAVIGATIONS.STUDENT);
+                    }
+                    case Admin -> {
+                        SessionHandler.startSession(id,USERTYPE.Admin);
+                        Navigator.Navigate(NAVIGATIONS.ADMIN);
+                    }
+
+                }
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
         });
     }
 
-    public void onLogin(){
-
-    }
 }

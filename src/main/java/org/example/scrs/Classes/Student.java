@@ -18,4 +18,9 @@ public class Student extends User{
     public int getSemester() {
         return semester;
     }
+
+    @Override
+    public String getDetails(){
+        return this.getId()+","+this.getName()+","+this.getEmail()+","+this.getPassword()+","+this.programme+","+this.semester;
+    }
 }

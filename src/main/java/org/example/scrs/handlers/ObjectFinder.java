@@ -3,16 +3,11 @@ package org.example.scrs.handlers;
 import org.example.scrs.Classes.*;
 import org.example.scrs.Enums.PROGRAMME;
 import org.example.scrs.Enums.USERTYPE;
-import org.example.scrs.handlers.FileHandling.*;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.example.scrs.handlers.FileHandling.RegistrationsFile;
 
 public class ObjectFinder {
     public static User GetUser(int searchId,USERTYPE usertype)throws IOException {
@@ -91,7 +86,7 @@ public class ObjectFinder {
         return null;
     }
 
-    public static Registration AllRegistrations(int searchId) throws IOException{
+    public static Registration getRegistration(int searchId) throws IOException{
         try(BufferedReader br=new BufferedReader(new FileReader(FileHandling.RegistrationsFile))){
             String line;
             String[] parts;

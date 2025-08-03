@@ -13,5 +13,6 @@ module org.example.scrs {
     opens org.example.scrs to javafx.fxml;
     exports org.example.scrs;
     exports org.example.scrs.Controllers;
+    exports org.example.scrs.Classes;
     opens org.example.scrs.Controllers to javafx.fxml;
 }

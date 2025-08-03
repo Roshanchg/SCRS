@@ -11,29 +11,60 @@
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.Label?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="org.example.scrs.Controllers.adminDashboardController"
-            prefHeight="400.0" prefWidth="600.0">
+            prefHeight="400.0" prefWidth="600.0" fx:id="mainPane">
 
     <!-- Top area: button aligned to right -->
     <top>
         <HBox  spacing="10" >
             <Pane HBox.hgrow="ALWAYS"/>
-            <Button text="Top Right Button" />
+            <Button text="Back" fx:id="backButton" onAction="#goHome"/>
         </HBox>
     </top>
 
     <!-- Center area: main content -->
     <center>
-        <HBox spacing="10" >
+        <HBox spacing="10"  >
             <!-- Left tile: TableView -->
-            <TableView fx:id="leftTable" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS" prefWidth="200"/>
-
+            <VBox fx:id="leftVbox">
+            <HBox fx:id="studentHbox">
+                <Label text="Students"/>
+                <Pane HBox.hgrow="ALWAYS"/>
+                <Button text="Add Student" onAction="#addStudent"/>
+            </HBox>
+            <TableView fx:id="leftTable" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS" prefWidth="200">
+                <columns>
+                <TableColumn text="ID" fx:id="idColumn" prefWidth="80"/>
+                <TableColumn text="Name" fx:id="nameColumn" prefWidth="140"/>
+                <TableColumn text="E-mail" fx:id="emailColumn" prefWidth="180"/>
+                <TableColumn text="Programme" fx:id="programmeColumn" prefWidth="100"/>
+                <TableColumn text="Semester" fx:id="semesterColumn" prefWidth="100"/>
+                <TableColumn text="Action" fx:id="actionColumn" prefWidth="100"/>
+                </columns>
+            </TableView>
+            </VBox>
             <!-- Right tile: VBox with PieChart on top, TableView bottom -->
             <VBox spacing="10" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS" prefWidth="300">
                 <PieChart fx:id="pieChart" VBox.vgrow="ALWAYS" prefHeight="150"/>
-                <TableView fx:id="rightTable" VBox.vgrow="ALWAYS" />
+                <VBox>
+                    <HBox>
+                        <Label text="Courses"/>
+                        <Pane HBox.hgrow="ALWAYS"/>
+                        <Button text="Add Course" onAction="#addCourse"/>
+                    </HBox>
+                <TableView fx:id="rightTable" VBox.vgrow="ALWAYS" >
+                    <columns>
+                        <TableColumn text="ID" fx:id="courseIdColumn" prefWidth="100"/>
+                        <TableColumn text="Name" fx:id="courseNameColumn" prefWidth="280"/>
+                        <TableColumn text="Programme" fx:id="courseProgrammeColumn" prefWidth="100"/>
+                        <TableColumn text="Action" fx:id="courseActionColumn" prefWidth="100"/>
+                    </columns>
+                </TableView>
+                </VBox>
             </VBox>
         </HBox>
     </center>

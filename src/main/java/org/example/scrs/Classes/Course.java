@@ -30,6 +30,6 @@ public class Course {
     }
 
     public String getDetails(){
-        return this.name+","+this.name+","+this.programme;
+        return this.id+","+this.name+","+this.programme;
     }
 }

@@ -7,7 +7,9 @@ import org.example.scrs.Enums.USERTYPE;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class FileHandling {
     public static String StudentFile="students.csv";
@@ -21,7 +23,6 @@ public class FileHandling {
     public static void init() throws IOException {
         File[] files={
                 new File(StudentFile),
-                new File(AdminFile),
                 new File(CoursesFile),
                 new File(RegistrationsFile)
         };
@@ -33,7 +34,31 @@ public class FileHandling {
         }
         File tempDir=new File(FileHandling.tempdir);
         tempDir.mkdir();
+        File adminFile=new File(AdminFile);
+        if(adminFile.exists()){
+            adminFile.delete();
+        }
+        adminFile.createNewFile();
+        Admin admin=new Admin(FileHandling.getNextId(AdminFile),"Admin",
+                "admin@gmail.com", "admin");
+        FileHandling.addUser(USERTYPE.Admin,admin.getDetails());
     }
+
+    public static int getNextId(String Filename)throws IOException{
+        int id=0;
+        try(BufferedReader br=new BufferedReader(new FileReader(Filename))){
+            String line;
+            String[] parts;
+            while((line=br.readLine())!=null){
+                if (line.trim().isEmpty()) continue;
+                parts=line.split(",");
+                id=Integer.parseInt(parts[0]);
+            }
+            id++;
+        }
+        return id;
+    }
+
 
     public static boolean emailExists(String email,USERTYPE usertype)throws IOException {
         int id = 0;
@@ -133,13 +158,13 @@ public class FileHandling {
     public static void addUser(USERTYPE usertype,String data)throws IOException{
         switch (usertype){
             case Admin -> {
-                try(BufferedWriter bw=new BufferedWriter(new FileWriter(AdminFile))){
+                try(BufferedWriter bw=new BufferedWriter(new FileWriter(AdminFile, true))){
                     bw.write(data);
                     bw.newLine();
                 }
             }
             case Student -> {
-                try(BufferedWriter bw=new BufferedWriter(new FileWriter(StudentFile))){
+                try(BufferedWriter bw=new BufferedWriter(new FileWriter(StudentFile,true))){
                     bw.write(data);
                     bw.newLine();
                 }
@@ -148,6 +173,32 @@ public class FileHandling {
     }
 
 
+    public static void removeUser(int uid)throws IOException{
+        Student user=(Student) ObjectFinder.GetUser(uid,USERTYPE.Student);
+        assert user!=null;
+        File originalFile=new File(StudentFile);
+        File tempFile=new File(tempdir,StudentFile);
+        if(tempFile.exists()){
+            tempFile.delete();
+        }
+        tempFile.createNewFile();
+        List<User> students=AllUsers(USERTYPE.Student);
+        try(BufferedWriter bw=new BufferedWriter(new FileWriter(tempFile,true))) {
+            for (User c : students) {
+                c=(Student) c;
+                if (c.getId() == uid) continue;
+                bw.write(c.getDetails());
+                bw.newLine();
+            }
+        }
+        if(originalFile.delete()){
+            tempFile.renameTo(originalFile);
+        }
+        else{
+            System.out.printf("File Removal failed");
+        }
+
+    }
 
 
 
@@ -177,20 +228,71 @@ public class FileHandling {
     }
 
     public static void addCourse(String data)throws IOException {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(CoursesFile))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(CoursesFile,true))) {
             bw.write(data);
             bw.newLine();
         }
+    }
+
+    public static void removeCourse(int cid)throws IOException{
+        Course course=ObjectFinder.GetCourse(cid);
+        assert course!=null;
+        File originalFile=new File(CoursesFile);
+        File tempFile=new File(tempdir,CoursesFile);
+        if(tempFile.exists()){
+            tempFile.delete();
+        }
+        tempFile.createNewFile();
+        List<Course> courses=AllCourses();
+        try(BufferedWriter bw=new BufferedWriter(new FileWriter(tempFile,true))) {
+            for (Course c : courses) {
+                if (c.getId() == cid) continue;
+                bw.write(c.getDetails());
+                bw.newLine();
+            }
+        }
+        if(originalFile.delete()){
+            tempFile.renameTo(originalFile);
+        }
+        else{
+            System.out.printf("File Removal failed");
+        }
+
     }
 
 
 
 
     public static void addRegistration(String data)throws IOException {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(RegistrationsFile))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(RegistrationsFile,true))) {
             bw.write(data);
             bw.newLine();
         }
+    }
+    public static void removeRegistration(int regId)throws IOException{
+        Registration registration=ObjectFinder.getRegistration(regId);
+        assert registration!=null;
+        File originalFile=new File(RegistrationsFile);
+        File tempFile=new File(tempdir,RegistrationsFile);
+        if(tempFile.exists()){
+            tempFile.delete();
+        }
+        tempFile.createNewFile();
+        List<Registration> registrations=AllRegistrations();
+        try(BufferedWriter bw=new BufferedWriter(new FileWriter(tempFile,true))) {
+            for (Registration reg : registrations) {
+                if (reg.getId() == regId) continue;
+                bw.write(reg.getDetails());
+                bw.newLine();
+            }
+        }
+        if(originalFile.delete()){
+           tempFile.renameTo(originalFile);
+        }
+        else{
+            System.out.printf("File Removal failed");
+        }
+
     }
     public static List<Registration> AllRegistrations() throws IOException{
         List<Registration> registrations=new ArrayList<>();
@@ -211,5 +313,18 @@ public class FileHandling {
             }
         }
         return registrations;
+    }
+
+
+    public static Map<Integer,Integer> getPieMap()throws IOException{
+        Map<Integer,Integer> studentCourseMap=new HashMap<>();
+        List<Registration> registrations=AllRegistrations();
+        Student student;
+        for(Registration reg :registrations){
+            student=(Student)ObjectFinder.GetUser(reg.getStudentId(),USERTYPE.Student);
+            assert student != null;
+            studentCourseMap.put(student.getId(),studentCourseMap.getOrDefault(student.getId(),0)+1);
+        }
+        return studentCourseMap;
     }
 }
