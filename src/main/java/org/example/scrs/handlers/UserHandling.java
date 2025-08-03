@@ -25,7 +25,8 @@ public class UserHandling {
                         id=Integer.parseInt(parts[0]);
                         name=parts[1];
                         emailPart=parts[2];
-                        if(email.equals(emailPart.trim())){
+                        passwordPart=parts[3];
+                        if(email.equals(emailPart)){
                             if(password.equals(passwordPart)){
                                 return id;
                             }
@@ -42,12 +43,14 @@ public class UserHandling {
                         id=Integer.parseInt(parts[0]);
                         name=parts[1];
                         emailPart=parts[2];
-                    }
-                    if(email.equals(emailPart.trim())){
-                        if(password.equals(passwordPart)){
-                            return id;
+                        passwordPart=parts[3];
+                        if(email.equals(emailPart)){
+                            if(password.equals(passwordPart)){
+                                return id;
+                            }
                         }
                     }
+
                 }
                 return 0;
             }

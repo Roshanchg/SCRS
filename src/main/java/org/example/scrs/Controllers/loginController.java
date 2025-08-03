@@ -56,6 +56,11 @@ public class loginController implements Initializable {
 
                 int id=UserHandling.authenticate(emailField.getText(),passwordField.getText(),usertypeComboBox.getValue());
                 SessionHandler.endSession();
+                if(id<=0){
+                    System.out.println(id);
+                    AlertManager.showError("Login Page","Invalid Credentials");
+                    return;
+                }
                 switch (usertypeComboBox.getValue()){
                     case Student -> {
                         SessionHandler.startSession(id, USERTYPE.Student);

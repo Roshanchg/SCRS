@@ -23,10 +23,7 @@ import org.example.scrs.Classes.User;
 import org.example.scrs.Enums.NAVIGATIONS;
 import org.example.scrs.Enums.PROGRAMME;
 import org.example.scrs.Enums.USERTYPE;
-import org.example.scrs.handlers.FileHandling;
-import org.example.scrs.handlers.Navigator;
-import org.example.scrs.handlers.ObjectFinder;
-import org.example.scrs.handlers.SessionHandler;
+import org.example.scrs.handlers.*;
 
 import javax.security.auth.callback.Callback;
 import java.io.IOException;
@@ -106,7 +103,7 @@ public class adminDashboardController implements Initializable {
                     Student student = getTableView().getItems().get(getIndex());
                     getTableView().getItems().remove(student);
                     try {
-                        FileHandling.removeUser(student.getId());
+                        DeletionHandler.onUserDelete(student.getId());
                         Navigator.Navigate(NAVIGATIONS.ADMIN);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
@@ -151,7 +148,7 @@ public class adminDashboardController implements Initializable {
                     Course course=getTableView().getItems().get(getIndex());
                     getTableView().getItems().remove(course);
                     try {
-                        FileHandling.removeCourse(course.getId());
+                        DeletionHandler.onCourseDelete(course.getId());
                         Navigator.Navigate(NAVIGATIONS.ADMIN);
                     } catch (IOException e) {
                         throw new RuntimeException(e);

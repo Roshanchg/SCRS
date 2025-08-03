@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.scrs.Controllers.AllCoursesController" spacing="10">
+
+    <TableView fx:id="coursesTable" prefHeight="400">
+        <columns>
+            <TableColumn fx:id="nameColumn" text="Course Name" prefWidth="230"/>
+            <TableColumn fx:id="programmeColumn" text="Programme" prefWidth="150"/>
+            <TableColumn fx:id="selectColumn" text="Check for registering" prefWidth="130"/>
+        </columns>
+    </TableView>
+
+    <HBox spacing="10">
+        <Label fx:id="selectedCountLabel" text="Selected: 0"/>
+        <Pane HBox.hgrow="ALWAYS"/>
+        <Button fx:id="registerButton" text="Register" onAction="#handleRegister"/>
+    </HBox>
+
+</VBox>

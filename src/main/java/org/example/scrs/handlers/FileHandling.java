@@ -200,6 +200,36 @@ public class FileHandling {
 
     }
 
+    public static void editUser(int uid,Student student)throws IOException{
+        Student user=(Student) ObjectFinder.GetUser(uid,USERTYPE.Student);
+        assert user!=null;
+        File originalFile=new File(StudentFile);
+        File tempFile=new File(tempdir,StudentFile);
+        if(tempFile.exists()){
+            tempFile.delete();
+        }
+        tempFile.createNewFile();
+        List<User> students=AllUsers(USERTYPE.Student);
+        try(BufferedWriter bw=new BufferedWriter(new FileWriter(tempFile,true))) {
+            for (User c : students) {
+                if (c.getId() == uid) {
+                    bw.write(student.getDetails());
+                    bw.newLine();
+                    continue;
+                };
+                bw.write(c.getDetails());
+                bw.newLine();
+            }
+        }
+        if(originalFile.delete()){
+            tempFile.renameTo(originalFile);
+        }
+        else{
+            System.out.printf("File Removal failed");
+        }
+
+    }
+
 
 
 
@@ -327,4 +357,6 @@ public class FileHandling {
         }
         return studentCourseMap;
     }
+
+
 }

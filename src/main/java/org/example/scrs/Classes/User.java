@@ -29,7 +29,7 @@ public class User {
     public String getDetails(){
         return this.id+","+this.name+","+this.email+","+this.password;
     }
-    protected String getPassword(){
+    public String getPassword(){
         return this.password;
     }
 

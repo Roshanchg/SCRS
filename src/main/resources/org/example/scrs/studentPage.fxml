@@ -9,16 +9,16 @@
             prefHeight="400.0" prefWidth="600.0">
 
     <BorderPane AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0">
+                AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" fx:id="mainPane">
 
         <!-- Left: Navigation bar -->
         <left>
             <VBox spacing="10" prefWidth="150">
                 <Label text="Student" fx:id="studentNameLabel"/>
-                <Button text="My Courses" fx:id="myCoursesButton" />
-                <Button text="All Courses" fx:id="allCoursesButton" />
-                <Button text="Profile Edit" fx:id="profileEditButton" />
-                <Button text="Log Out" fx:id="logoutButton" />
+                <Button text="My Courses" fx:id="myCoursesButton" onAction="#ShowMyCourses"/>
+                <Button text="All Courses" fx:id="allCoursesButton" onAction="#ShowAllCourses"/>
+                <Button text="Profile Edit" fx:id="profileEditButton" onAction="#ShowProfileEdit"/>
+                <Button text="Log Out" fx:id="logoutButton" onAction="#onLogout"/>
             </VBox>
         </left>
 

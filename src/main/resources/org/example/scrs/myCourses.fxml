@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.scrs.Controllers.MyCoursesController" spacing="10" >
+    <Label text="My Registered Courses" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+
+    <TableView fx:id="coursesTable" prefHeight="400">
+        <columns>
+            <TableColumn fx:id="nameColumn" text="Course Name" prefWidth="200"/>
+            <TableColumn fx:id="programmeColumn" text="Programme" prefWidth="150"/>
+            <TableColumn fx:id="actionColumn" text="Action" prefWidth="100"/>
+        </columns>
+    </TableView>
+</VBox>
